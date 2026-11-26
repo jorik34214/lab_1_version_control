@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Калькулятор знижок</title>
+</head>
+<body>
+  <h1>Калькулятор знижок</h1>
+  <form id="discountForm">
+    <label for="price">Ціна товару (грн):</label>
+    <input id="price" type="number" placeholder="Введіть ціну" required />
+    <label for="discount">Знижка (%):</label>
+    <input id="discount" type="number" placeholder="Введіть відсоток" required />
+    <button id="calculateBtn" type="submit">Розрахувати</button>
+  </form>
+  <div id="result" style="display: none;">
+    <p>Сума знижки: <span id="discountAmount"></span> грн</p>
+    <p>Ціна зі знижкою: <span id="finalPrice"></span> грн</p>
+  </div>
+  <p id="errorMessage" style="display: none; color: red;">Помилка: відсоток знижки має бути від 0 до 100</p>
+  <script>
+    document.getElementById('discountForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const price = parseFloat(document.getElementById('price').value);
+      const discount = parseFloat(document.getElementById('discount').value);
+
+      if (isNaN(price) || isNaN(discount) || price < 0 || discount < 0 || discount > 100) {
+        document.getElementById('errorMessage').style.display = 'block';
+        document.getElementById('result').style.display = 'none';
+        return;
+      }
+
+      const discountAmount = parseFloat((price * discount / 100).toFixed(2));
+      const finalPrice = parseFloat((price - discountAmount).toFixed(2));
+
+      document.getElementById('discountAmount').textContent = discountAmount.toFixed(2);
+      document.getElementById('finalPrice').textContent = finalPrice.toFixed(2);
+      document.getElementById('result').style.display = 'block';
+      document.getElementById('errorMessage').style.display = 'none';
+    });
+  </script>
+</body>
+</html>

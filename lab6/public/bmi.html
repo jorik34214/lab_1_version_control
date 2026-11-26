@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Калькулятор ІМТ</title>
+</head>
+<body>
+  <h1>Калькулятор індексу маси тіла</h1>
+  <form id="bmiForm">
+    <label for="weight">Вага (кг):</label>
+    <input id="weight" type="number" placeholder="Введіть вагу" min="1" required />
+    <label for="height">Зріст (см):</label>
+    <input id="height" type="number" placeholder="Введіть зріст" min="1" required />
+    <button id="calcBtn" type="submit">Розрахувати</button>
+  </form>
+  <div id="result" style="display: none;">
+    <p>ІМТ: <span id="bmiValue"></span></p>
+    <p>Категорія: <span id="bmiCategory"></span></p>
+  </div>
+  <p id="errorMsg" style="display: none; color: red;">
+    Будь ласка, введіть коректні значення ваги та зросту
+  </p>
+  <script>
+    document.getElementById('bmiForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const weight = parseFloat(document.getElementById('weight').value);
+      const height = parseFloat(document.getElementById('height').value);
+      if (!weight || !height || weight <= 0 || height <= 0) {
+        document.getElementById('errorMsg').style.display = 'block';
+        document.getElementById('result').style.display = 'none';
+        return;
+      }
+      const heightM = height / 100;
+      const bmi = parseFloat((weight / (heightM * heightM)).toFixed(1));
+      let category;
+      if (bmi < 18.5)      category = 'Недостатня вага';
+      else if (bmi < 25)   category = 'Нормальна вага';
+      else if (bmi < 30)   category = 'Надлишкова вага';
+      else                 category = 'Ожиріння';
+      document.getElementById('bmiValue').textContent = bmi;
+      document.getElementById('bmiCategory').textContent = category;
+      document.getElementById('result').style.display = 'block';
+      document.getElementById('errorMsg').style.display = 'none';
+    });
+  </script>
+</body>
+</html>
