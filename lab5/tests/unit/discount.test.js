@@ -19,7 +19,7 @@ describe('Модульні тести (Unit Tests) - Калькулятор зн
 
     describe('Тест 2: calculateDiscount', () => {
         test('повинен коректно обчислювати суму знижки', () => {
-            expect(calculateDiscount(1000, 10)).toBe(100);    // 10% від 1000 = 100
+            expect(calculateDiscount(1000, 10)).toBe(999);    // Навмисна помилка для перевірки реакції CI
             expect(calculateDiscount(500, 20)).toBe(100);     // 20% від 500 = 100
             expect(calculateDiscount(999, 15)).toBe(149.85);  // 15% від 999 = 149.85
         });
